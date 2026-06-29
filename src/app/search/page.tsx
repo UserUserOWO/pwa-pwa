@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/lib/LanguageContext";
 import { searchProfiles } from "@/services/profiles";
 import { Profile } from "@/types";
 import { FiSearch, FiUser } from "react-icons/fi";
 
 export default function SearchPage() {
   const { user, loading } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Profile[]>([]);
@@ -47,7 +49,7 @@ export default function SearchPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Search People</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">{t("search.title")}</h1>
 
       <div className="relative mb-6">
         <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -55,7 +57,7 @@ export default function SearchPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by name or hashtag..."
+          placeholder={t("search.placeholder")}
           className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm shadow-sm"
           autoFocus
         />
@@ -70,8 +72,8 @@ export default function SearchPage() {
       {!searching && query && results.length === 0 && (
         <div className="text-center py-16">
           <div className="text-6xl mb-4">🔍</div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">No results found</h2>
-          <p className="text-gray-500">Try a different search query</p>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("search.empty.title")}</h2>
+          <p className="text-gray-500">{t("search.empty.desc")}</p>
         </div>
       )}
 
@@ -116,8 +118,8 @@ export default function SearchPage() {
       {!query && (
         <div className="text-center py-16">
           <div className="text-6xl mb-4">👥</div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">Find people</h2>
-          <p className="text-gray-500">Search by name or hashtag to find people</p>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("search.idle.title")}</h2>
+          <p className="text-gray-500">{t("search.idle.desc")}</p>
         </div>
       )}
     </div>

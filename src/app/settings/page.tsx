@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/lib/LanguageContext";
 import { updateProfile, uploadProfilePhoto } from "@/services/profiles";
 import { FiCamera, FiSave, FiAlertCircle } from "react-icons/fi";
 
 export default function SettingsPage() {
   const { user, profile, loading } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -83,7 +85,7 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Settings</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-8">{t("settings.title")}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Photo */}
@@ -107,7 +109,7 @@ export default function SettingsPage() {
               />
             </label>
           </div>
-          {photoUploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
+          {photoUploading && <p className="text-sm text-gray-500 mt-2">{t("settings.uploading")}</p>}
         </div>
 
         {error && (
@@ -119,12 +121,12 @@ export default function SettingsPage() {
 
         {success && (
           <div className="p-3 bg-green-50 text-green-600 rounded-xl text-sm text-center">
-            Profile updated successfully!
+            {t("settings.success")}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Name</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">{t("settings.name")}</label>
           <input
             type="text"
             value={name}
@@ -135,7 +137,7 @@ export default function SettingsPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Description</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">{t("settings.description")}</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -147,13 +149,13 @@ export default function SettingsPage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Hashtags (comma separated)
+            {t("settings.hashtags")}
           </label>
           <input
             type="text"
             value={hashtagsStr}
             onChange={(e) => setHashtagsStr(e.target.value)}
-            placeholder="developer, design, travel"
+            placeholder={t("settings.hashtags.placeholder")}
             className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm"
           />
         </div>
@@ -164,7 +166,7 @@ export default function SettingsPage() {
           className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
         >
           <FiSave className="w-5 h-5" />
-          {saving ? "Saving..." : "Save Changes"}
+          {saving ? t("settings.saving") : t("settings.save")}
         </button>
       </form>
     </div>

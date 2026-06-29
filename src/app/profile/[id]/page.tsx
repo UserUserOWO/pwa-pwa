@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/lib/LanguageContext";
 import { getProfileById } from "@/services/profiles";
 import { getReviewsForProfile, getReviewStats, createReview } from "@/services/reviews";
 import { Profile, Review } from "@/types";
@@ -13,6 +14,7 @@ import { FiStar, FiMessageSquare, FiX, FiDownload } from "react-icons/fi";
 export default function ProfilePage() {
   const { id } = useParams<{ id: string }>();
   const { user, profile: myProfile } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -91,7 +93,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">😕</div>
-          <h2 className="text-lg font-semibold text-gray-900">Profile not found</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{t("profile.notfound")}</h2>
         </div>
       </div>
     );
@@ -134,11 +136,11 @@ export default function ProfilePage() {
             <div className="flex items-center gap-6 mt-4 justify-center sm:justify-start">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">{stats.count}</div>
-                <div className="text-xs text-gray-500">Reviews</div>
+                <div className="text-xs text-gray-500">{t("profile.reviews")}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-500">{stats.average}</div>
-                <div className="text-xs text-gray-500">Rating</div>
+                <div className="text-xs text-gray-500">{t("profile.rating")}</div>
               </div>
             </div>
           </div>
@@ -162,7 +164,7 @@ export default function ProfilePage() {
               className="flex items-center gap-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
             >
               <FiDownload className="w-4 h-4" />
-              Download QR Code
+              {t("profile.download_qr")}
             </button>
           </div>
         </div>
@@ -175,7 +177,7 @@ export default function ProfilePage() {
               className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
             >
               <FiMessageSquare className="w-5 h-5" />
-              {showReviewForm ? "Cancel" : "Leave a Review"}
+              {showReviewForm ? t("profile.review.cancel") : t("profile.review.btn")}
             </button>
           </div>
         )}
@@ -184,7 +186,7 @@ export default function ProfilePage() {
         {showReviewForm && (
           <form onSubmit={handleSubmitReview} className="mt-6 p-5 bg-gray-50 rounded-xl animate-scale-in">
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t("profile.review.rating")}</label>
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
@@ -206,11 +208,11 @@ export default function ProfilePage() {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Review</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t("profile.review.text")}</label>
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Share your experience..."
+                placeholder={t("profile.review.placeholder")}
                 rows={3}
                 className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm resize-none"
               />
@@ -221,7 +223,7 @@ export default function ProfilePage() {
               disabled={submitting}
               className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all disabled:opacity-50"
             >
-              {submitting ? "Submitting..." : "Submit Review"}
+              {submitting ? t("profile.review.submitting") : t("profile.review.submit")}
             </button>
           </form>
         )}
@@ -230,13 +232,13 @@ export default function ProfilePage() {
       {/* Reviews */}
       <div className="mt-8">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
-          Reviews ({reviews.length})
+          {t("profile.reviews")} ({reviews.length})
         </h2>
 
         {reviews.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
             <div className="text-4xl mb-3">💬</div>
-            <p className="text-gray-500">No reviews yet</p>
+            <p className="text-gray-500">{t("profile.noreviews")}</p>
           </div>
         ) : (
           <div className="space-y-4">

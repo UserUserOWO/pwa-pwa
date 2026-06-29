@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 export const metadata: Metadata = {
   title: "PeopleReview - Service reviews about people",
@@ -21,8 +22,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className="min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="pb-16">{children}</main>
+        <LanguageProvider>
+          <Navbar />
+          <main className="pb-16">{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );

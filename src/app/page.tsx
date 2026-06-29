@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/lib/LanguageContext";
 import { FiStar, FiUsers, FiShield } from "react-icons/fi";
 
 export default function HomePage() {
   const { user, loading } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
@@ -38,17 +40,16 @@ export default function HomePage() {
           <div className="text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6">
               <FiStar className="w-4 h-4" />
-              MVP Launch
+              {t("home.badge")}
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 tracking-tight mb-6">
-              Reviews about
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> people</span>
+              {t("home.title.line1")}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> {t("home.title.line2")}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Create a profile, get a personal QR code and collect reviews from people you interact with.
-              Simple, transparent, honest.
+              {t("home.desc")}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -56,13 +57,13 @@ export default function HomePage() {
                 href="/register"
                 className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 text-white font-semibold rounded-2xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
               >
-                Get Started
+                {t("home.cta.start")}
               </Link>
               <Link
                 href="/login"
                 className="w-full sm:w-auto px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all"
               >
-                Sign In
+                {t("home.cta.signin")}
               </Link>
             </div>
           </div>
@@ -75,18 +76,18 @@ export default function HomePage() {
           {[
             {
               icon: FiUsers,
-              title: "Create Profile",
-              desc: "Set up your profile with photo, description and hashtags",
+              title: t("feature.create.title"),
+              desc: t("feature.create.desc"),
             },
             {
               icon: FiShield,
-              title: "Get QR Code",
-              desc: "Receive a personal QR code to share with people",
+              title: t("feature.qr.title"),
+              desc: t("feature.qr.desc"),
             },
             {
               icon: FiStar,
-              title: "Collect Reviews",
-              desc: "Get honest feedback from people you interact with",
+              title: t("feature.reviews.title"),
+              desc: t("feature.reviews.desc"),
             },
           ].map((feature, i) => (
             <div
