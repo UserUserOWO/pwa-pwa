@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create indexes
+-- Create indexes (IF NOT EXISTS works for indexes too)
 CREATE INDEX IF NOT EXISTS idx_reviews_profile_id ON reviews(profile_id);
 CREATE INDEX IF NOT EXISTS idx_reviews_created_at ON reviews(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_profiles_user_id ON profiles(user_id);
@@ -29,6 +29,15 @@ CREATE INDEX IF NOT EXISTS idx_profiles_name ON profiles(name);
 -- Enable Row Level Security
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies first to allow re-running
+DROP POLICY IF EXISTS "Profiles are viewable by everyone" ON profiles;
+DROP POLICY IF EXISTS "Users can insert their own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can update their own profile" ON profiles;
+DROP POLICY IF EXISTS "Reviews are viewable by everyone" ON reviews;
+DROP POLICY IF EXISTS "Authenticated users can insert reviews" ON reviews;
+DROP POLICY IF EXISTS "Authenticated users can upload avatars" ON storage.objects;
+DROP POLICY IF EXISTS "Anyone can view avatars" ON storage.objects;
 
 -- Profiles policies
 CREATE POLICY "Profiles are viewable by everyone"
@@ -69,6 +78,10 @@ CREATE POLICY "Anyone can view avatars"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'avatars');
 
+-- Drop existing trigger and function to allow re-running
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_new_user();
+
 -- Function to automatically create profile on signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
@@ -83,6 +96,6 @@ END;
 $$;
 
 -- Trigger to call the function on user signup
-CREATE OR REPLACE TRIGGER on_auth_user_created
+CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();

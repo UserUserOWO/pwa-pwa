@@ -9,8 +9,12 @@ export async function signUp(email: string, password: string, name: string) {
     },
   });
 
-  if (authError) throw authError;
-  if (!authData.user) throw new Error("Registration failed");
+  if (authError) {
+    throw new Error(authError.message);
+  }
+  if (!authData.user) {
+    throw new Error("Registration failed. Check if email confirmation is required.");
+  }
 
   return authData;
 }
@@ -21,7 +25,7 @@ export async function signIn(email: string, password: string) {
     password,
   });
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
