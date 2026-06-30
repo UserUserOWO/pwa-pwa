@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
-import { FiHome, FiSearch, FiCamera, FiUser, FiSettings } from "react-icons/fi";
+import { FiHome, FiSearch, FiCamera, FiUser, FiSettings, FiCreditCard } from "react-icons/fi";
 
 export default function MobileNav() {
   const { user, profile } = useAuth();
@@ -39,11 +39,11 @@ export default function MobileNav() {
         </Link>
 
         <Link
-          href={profile ? `/profile/${profile.id}` : "/"}
+          href="/balance"
           className="flex flex-col items-center gap-0.5 text-gray-500 hover:text-amber-600 transition-colors"
         >
-          <FiUser className="w-5 h-5" />
-          <span className="text-[10px] font-medium">Profile</span>
+          <FiCreditCard className="w-5 h-5" />
+          <span className="text-[10px] font-medium">Credits</span>
         </Link>
 
         <Link

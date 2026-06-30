@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { signOut } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/lib/LanguageContext";
-import { FiUser, FiLogOut, FiSearch, FiHome, FiGlobe, FiCamera } from "react-icons/fi";
+import { FiUser, FiLogOut, FiSearch, FiHome, FiGlobe, FiCamera, FiCreditCard } from "react-icons/fi";
 
 export default function Navbar() {
   const { user, profile } = useAuth();
@@ -40,6 +40,14 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="/balance"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-amber-700 bg-amber-100 hover:bg-amber-200 rounded-xl transition-all"
+          >
+            <FiCreditCard className="w-4 h-4" />
+            {t("nav.balance")}
+          </Link>
+
           <Link
             href="/scan"
             className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-amber-700 bg-amber-100 hover:bg-amber-200 rounded-xl transition-all"

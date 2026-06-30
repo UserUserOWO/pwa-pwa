@@ -26,6 +26,27 @@ export interface ReviewInsert {
   text: string;
 }
 
+export interface Wallet {
+  id: string;
+  user_id: string;
+  balance: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export type TransactionType = "DEPOSIT" | "SPEND" | "REFUND";
+export type TransactionStatus = "COMPLETED" | "PENDING" | "FAILED";
+
+export interface Transaction {
+  id: string;
+  user_id: string;
+  type: TransactionType;
+  amount: number;
+  description: string;
+  status: TransactionStatus;
+  created_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -52,6 +73,16 @@ export interface Database {
             referencedColumns: ["id"];
           }
         ];
+      };
+      wallets: {
+        Row: Wallet;
+        Insert: Omit<Wallet, "id" | "created_at" | "updated_at">;
+        Update: Partial<Omit<Wallet, "id" | "created_at" | "updated_at">>;
+      };
+      transactions: {
+        Row: Transaction;
+        Insert: Omit<Transaction, "id" | "created_at">;
+        Update: Partial<Omit<Transaction, "id" | "created_at">>;
       };
     };
   };

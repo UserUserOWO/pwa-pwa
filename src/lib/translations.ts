@@ -6,6 +6,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.home": "PeopleReview",
     "nav.profile": "Profile",
     "nav.scan": "Scan QR",
+    "nav.balance": "Credits",
 
     // Home page
     "home.badge": "MVP Launch",
@@ -82,6 +83,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     "scan.hint.title": "Works with PeopleReview QR codes",
     "scan.hint.desc": "Just point your camera at any PeopleReview profile QR code and you'll be taken directly to their profile",
 
+    // Balance
+    "balance.title": "My Balance",
+    "balance.current": "Current Balance",
+    "balance.credits": "Credits",
+    "balance.topup": "Top Up",
+    "balance.deposits": "Deposits",
+    "balance.spends": "Spends",
+    "balance.history": "Transaction History",
+    "balance.history.empty": "No transactions yet",
+
+    // Top Up
+    "topup.title": "Buy Credits",
+    "topup.desc": "Choose a package to top up your balance",
+    "topup.popular": "Popular",
+    "topup.unavailable.title": "Payment Unavailable",
+    "topup.unavailable.desc": "Payment system is being set up. Please check back later. Your balance page and profile features still work.",
+
     // Common
     "common.loading": "Loading...",
     "common.error": "Error",
@@ -95,6 +113,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.home": "PeopleReview",
     "nav.profile": "Профиль",
     "nav.scan": "Сканировать QR",
+    "nav.balance": "Кредиты",
 
     // Home page
     "home.badge": "MVP Запуск",
@@ -170,6 +189,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     "scan.desc": "Наведите камеру на QR-код, чтобы посмотреть профиль",
     "scan.hint.title": "Работает с QR-кодами PeopleReview",
     "scan.hint.desc": "Просто наведите камеру на QR-код профиля PeopleReview, и вы перейдёте прямо в профиль",
+
+    // Balance
+    "balance.title": "Мой баланс",
+    "balance.current": "Текущий баланс",
+    "balance.credits": "Кредитов",
+    "balance.topup": "Пополнить",
+    "balance.deposits": "Пополнений",
+    "balance.spends": "Списаний",
+    "balance.history": "История операций",
+    "balance.history.empty": "Пока нет операций",
+
+    // Top Up
+    "topup.title": "Купить кредиты",
+    "topup.desc": "Выберите пакет для пополнения баланса",
+    "topup.popular": "Популярное",
+    "topup.unavailable.title": "Оплата недоступна",
+    "topup.unavailable.desc": "Платёжная система настраивается. Зайдите позже. Баланс и профиль продолжают работать.",
 
     // Common
     "common.loading": "Загрузка...",
