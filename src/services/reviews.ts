@@ -23,12 +23,15 @@ export async function getReviewsForProfile(
 ): Promise<Review[]> {
   const { data, error } = await supabase
     .from("reviews")
-    .select("*, reviewer:profiles!reviews_reviewer_id_fkey(*)")
+    .select("*, reviewer:profiles(id, name, photo_url, description, hashtags, user_id, created_at, updated_at)")
     .eq("profile_id", profileId)
     .order("created_at", { ascending: false })
     .limit(limit);
 
-  if (error) return [];
+  if (error) {
+    console.error("getReviewsForProfile error:", error);
+    return [];
+  }
   return (data as unknown as Review[]) || [];
 }
 
@@ -37,11 +40,14 @@ export async function getRecentReviews(
 ): Promise<Review[]> {
   const { data, error } = await supabase
     .from("reviews")
-    .select("*, reviewer:profiles!reviews_reviewer_id_fkey(*)")
+    .select("*, reviewer:profiles(id, name, photo_url, description, hashtags, user_id, created_at, updated_at)")
     .order("created_at", { ascending: false })
     .limit(limit);
 
-  if (error) return [];
+  if (error) {
+    console.error("getRecentReviews error:", error);
+    return [];
+  }
   return (data as unknown as Review[]) || [];
 }
 

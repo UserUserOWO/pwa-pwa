@@ -5,6 +5,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Navbar
     "nav.home": "PeopleReview",
     "nav.profile": "Profile",
+    "nav.scan": "Scan QR",
 
     // Home page
     "home.badge": "MVP Launch",
@@ -75,6 +76,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     "search.idle.title": "Find people",
     "search.idle.desc": "Search by name or hashtag to find people",
 
+    // Scan QR
+    "scan.title": "Scan QR Code",
+    "scan.desc": "Point your camera at a QR code to view someone's profile",
+    "scan.hint.title": "Works with PeopleReview QR codes",
+    "scan.hint.desc": "Just point your camera at any PeopleReview profile QR code and you'll be taken directly to their profile",
+
     // Common
     "common.loading": "Loading...",
     "common.error": "Error",
@@ -87,6 +94,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Navbar
     "nav.home": "PeopleReview",
     "nav.profile": "Профиль",
+    "nav.scan": "Сканировать QR",
 
     // Home page
     "home.badge": "MVP Запуск",
@@ -156,6 +164,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     "search.empty.desc": "Попробуйте другой запрос",
     "search.idle.title": "Найти людей",
     "search.idle.desc": "Ищите людей по имени или хэштегу",
+
+    // Scan QR
+    "scan.title": "Сканировать QR-код",
+    "scan.desc": "Наведите камеру на QR-код, чтобы посмотреть профиль",
+    "scan.hint.title": "Работает с QR-кодами PeopleReview",
+    "scan.hint.desc": "Просто наведите камеру на QR-код профиля PeopleReview, и вы перейдёте прямо в профиль",
 
     // Common
     "common.loading": "Загрузка...",

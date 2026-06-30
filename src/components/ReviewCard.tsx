@@ -34,10 +34,10 @@ function Stars({ rating }: { rating: number }) {
 
 export default function ReviewCard({ review }: { review: Review }) {
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 animate-fade-in">
+    <div className="bg-white rounded-2xl p-5 shadow-sm border border-amber-100 hover:shadow-md transition-all duration-300 animate-fade-in">
       <div className="flex items-start gap-3">
         <Link href={`/profile/${review.profile_id}`}>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-medium text-sm shrink-0">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white font-medium text-sm shrink-0">
             {review.reviewer?.name?.[0]?.toUpperCase() || "?"}
           </div>
         </Link>
@@ -46,7 +46,7 @@ export default function ReviewCard({ review }: { review: Review }) {
           <div className="flex items-center justify-between gap-2">
             <Link
               href={`/profile/${review.profile_id}`}
-              className="font-semibold text-sm text-gray-900 hover:text-indigo-600 transition-colors truncate"
+              className="font-semibold text-sm text-gray-900 hover:text-amber-500 transition-colors truncate"
             >
               {review.reviewer?.name || "Unknown User"}
             </Link>

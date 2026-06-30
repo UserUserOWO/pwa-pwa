@@ -34,7 +34,7 @@ export default function FeedPage() {
   if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -51,7 +51,7 @@ export default function FeedPage() {
               setFeedLoading(false);
             });
           }}
-          className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+          className="p-2 text-gray-500 hover:text-amber-500 hover:bg-amber-50 rounded-xl transition-all"
         >
           <FiRefreshCw className={`w-5 h-5 ${feedLoading ? "animate-spin" : ""}`} />
         </button>
@@ -60,13 +60,13 @@ export default function FeedPage() {
       {feedLoading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 animate-pulse">
+            <div key={i} className="bg-white rounded-2xl p-5 shadow-sm border border-amber-100 animate-pulse">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-gray-200" />
+                <div className="w-10 h-10 rounded-full bg-amber-200" />
                 <div className="flex-1">
-                  <div className="h-4 bg-gray-200 rounded w-1/3 mb-2" />
-                  <div className="h-3 bg-gray-200 rounded w-1/4 mb-3" />
-                  <div className="h-4 bg-gray-200 rounded w-2/3" />
+                  <div className="h-4 bg-amber-100 rounded w-1/3 mb-2" />
+                  <div className="h-3 bg-amber-100 rounded w-1/4 mb-3" />
+                  <div className="h-4 bg-amber-100 rounded w-2/3" />
                 </div>
               </div>
             </div>

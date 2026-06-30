@@ -21,7 +21,7 @@ export default function HomePage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -32,20 +32,20 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-yellow-50" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-50" />
 
         <div className="relative max-w-4xl mx-auto px-4 pt-20 pb-16 sm:pt-32 sm:pb-24">
           <div className="text-center animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-medium mb-6">
               <FiStar className="w-4 h-4" />
               {t("home.badge")}
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 tracking-tight mb-6">
               {t("home.title.line1")}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> {t("home.title.line2")}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-yellow-500"> {t("home.title.line2")}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -55,13 +55,13 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register"
-                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 text-white font-semibold rounded-2xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
+                className="w-full sm:w-auto px-8 py-3.5 bg-amber-400 text-amber-900 font-semibold rounded-2xl hover:bg-amber-500 active:scale-95 transition-all shadow-lg shadow-amber-200"
               >
                 {t("home.cta.start")}
               </Link>
               <Link
                 href="/login"
-                className="w-full sm:w-auto px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all"
+                className="w-full sm:w-auto px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-2xl border border-amber-200 hover:bg-amber-50 active:scale-95 transition-all"
               >
                 {t("home.cta.signin")}
               </Link>
@@ -92,11 +92,11 @@ export default function HomePage() {
           ].map((feature, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up"
+              className="bg-white rounded-2xl p-6 border border-amber-100 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up"
               style={{ animationDelay: `${i * 100}ms` }}
             >
-              <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-indigo-600" />
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
+                <feature.icon className="w-6 h-6 text-amber-500" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">{feature.title}</h3>
               <p className="text-sm text-gray-500 leading-relaxed">{feature.desc}</p>

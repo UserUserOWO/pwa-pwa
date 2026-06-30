@@ -83,7 +83,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -102,10 +102,10 @@ export default function ProfilePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       {/* Profile Header */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 animate-fade-in">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-amber-100 animate-fade-in">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
           {/* Avatar */}
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-3xl font-bold shrink-0">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white text-3xl font-bold shrink-0">
             {profile.photo_url ? (
               <img src={profile.photo_url} alt={profile.name} className="w-full h-full rounded-full object-cover" />
             ) : (
@@ -125,7 +125,7 @@ export default function ProfilePage() {
                 {profile.hashtags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-medium rounded-full"
+                    className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-full"
                   >
                     #{tag}
                   </span>
@@ -147,9 +147,9 @@ export default function ProfilePage() {
         </div>
 
         {/* QR Code */}
-        <div className="mt-6 pt-6 border-t border-gray-100">
+        <div className="mt-6 pt-6 border-t border-amber-100">
           <div className="flex flex-col items-center gap-3">
-            <div className="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
+            <div className="bg-white p-3 rounded-xl shadow-sm border border-amber-100">
               {origin && (
                 <QRCodeSVG
                   id="qr-code"
@@ -161,7 +161,7 @@ export default function ProfilePage() {
             </div>
             <button
               onClick={downloadQR}
-              className="flex items-center gap-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
+              className="flex items-center gap-2 text-sm text-amber-500 hover:text-amber-600 font-medium transition-colors"
             >
               <FiDownload className="w-4 h-4" />
               {t("profile.download_qr")}
@@ -171,10 +171,10 @@ export default function ProfilePage() {
 
         {/* Review Button */}
         {!isMyProfile && user && (
-          <div className="mt-6 pt-6 border-t border-gray-100">
+          <div className="mt-6 pt-6 border-t border-amber-100">
             <button
               onClick={() => setShowReviewForm(!showReviewForm)}
-              className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              className="w-full py-3 bg-amber-400 text-amber-900 font-semibold rounded-xl hover:bg-amber-500 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
             >
               <FiMessageSquare className="w-5 h-5" />
               {showReviewForm ? t("profile.review.cancel") : t("profile.review.btn")}
@@ -184,7 +184,7 @@ export default function ProfilePage() {
 
         {/* Review Form */}
         {showReviewForm && (
-          <form onSubmit={handleSubmitReview} className="mt-6 p-5 bg-gray-50 rounded-xl animate-scale-in">
+          <form onSubmit={handleSubmitReview} className="mt-6 p-5 bg-amber-50 rounded-xl animate-scale-in">
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">{t("profile.review.rating")}</label>
               <div className="flex gap-2">
@@ -214,14 +214,14 @@ export default function ProfilePage() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder={t("profile.review.placeholder")}
                 rows={3}
-                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm resize-none"
+                className="w-full px-4 py-3 bg-white border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all text-sm resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full py-3 bg-amber-400 text-amber-900 font-semibold rounded-xl hover:bg-amber-500 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {submitting ? t("profile.review.submitting") : t("profile.review.submit")}
             </button>
@@ -236,7 +236,7 @@ export default function ProfilePage() {
         </h2>
 
         {reviews.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
+          <div className="text-center py-12 bg-white rounded-2xl border border-amber-100">
             <div className="text-4xl mb-3">💬</div>
             <p className="text-gray-500">{t("profile.noreviews")}</p>
           </div>

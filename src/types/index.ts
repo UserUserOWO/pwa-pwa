@@ -19,6 +19,13 @@ export interface Review {
   reviewer?: Profile;
 }
 
+export interface ReviewInsert {
+  profile_id: string;
+  reviewer_id: string;
+  rating: number;
+  text: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -29,8 +36,22 @@ export interface Database {
       };
       reviews: {
         Row: Review;
-        Insert: Omit<Review, "id" | "created_at">;
-        Update: Partial<Omit<Review, "id" | "created_at">>;
+        Insert: ReviewInsert;
+        Update: Partial<ReviewInsert>;
+        Relationships: [
+          {
+            foreignKeyName: "reviews_reviewer_id_fkey";
+            columns: ["reviewer_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "reviews_profile_id_fkey";
+            columns: ["profile_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
   };

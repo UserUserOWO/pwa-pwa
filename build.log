@@ -1,0 +1,48 @@
+   ▲ Next.js 15.5.19
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 16.3s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+<--- Last few GCs --->
+
+[1668:000001709598B000]    71514 ms: Scavenge 248.8 (328.3) -> 188.8 (328.3) MB, pooled: 40 MB, 1.71 / 0.00 ms  (average mu = 0.997, current mu = 0.999) allocation failure; 
+[1668:000001709598B000]    71594 ms: Scavenge 245.2 (328.3) -> 189.9 (328.3) MB, pooled: 40 MB, 0.98 / 0.00 ms  (average mu = 0.997, current mu = 0.999) task; 
+[1668:000001709598B000]    71830 ms: Scavenge 253.5 (328.4) -> 192.6 (328.4) MB, pooled: 40 MB, 2.33 / 0.01 ms  (average mu = 0.997, current mu = 0.999) allocation failure; 
+
+FATAL ERROR: Zone Allocation failed - process out of memory
+----- Native stack trace -----
+
+ 1: 00007FF7D0640CCF 
+ 2: 00007FF7D128F697 
+ 3: 00007FF7D0C09576 
+ 4: 00007FF7D1EB9773 
+ 5: 00007FF7D2281D50 
+ 6: 00007FF7D2280360 
+ 7: 00007FF7D227F16E 
+ 8: 00007FF7D227E88D 
+ 9: 00007FF7D227DC13 
+10: 00007FF7D1FF1F80 
+11: 00007FF7D1FF1E2E 
+12: 00007FF7D1C90DF6 
+13: 00007FF7D1C87F0B 
+14: 00007FF7D1C87370 
+15: 00007FF7D120335F 
+16: 00007FF7D11C83ED 
+17: 00007FF7D11C80E5 
+18: 00007FF7D1A7519F 
+19: 00007FF7D059081E 
+20: 00007FF7D12E46D6 
+21: 00007FF7D254A033 
+22: 00007FFD66C7E957 
+23: 00007FFD67587C1C 

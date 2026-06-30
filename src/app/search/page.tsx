@@ -42,7 +42,7 @@ export default function SearchPage() {
   if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -58,14 +58,14 @@ export default function SearchPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("search.placeholder")}
-          className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm shadow-sm"
+          className="w-full pl-12 pr-4 py-3.5 bg-white border border-amber-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all text-sm shadow-sm"
           autoFocus
         />
       </div>
 
       {searching && (
         <div className="flex justify-center py-8">
-          <div className="w-6 h-6 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
 
@@ -83,9 +83,9 @@ export default function SearchPage() {
             <Link
               key={profile.id}
               href={`/profile/${profile.id}`}
-              className="flex items-center gap-4 bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-md transition-all duration-300 animate-fade-in"
+              className="flex items-center gap-4 bg-white rounded-2xl p-4 border border-amber-100 hover:shadow-md transition-all duration-300 animate-fade-in"
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold shrink-0">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white font-bold shrink-0">
                 {profile.photo_url ? (
                   <img src={profile.photo_url} alt="" className="w-full h-full rounded-full object-cover" />
                 ) : (
@@ -101,7 +101,7 @@ export default function SearchPage() {
                 {profile.hashtags && profile.hashtags.length > 0 && (
                   <div className="flex gap-1.5 mt-1">
                     {profile.hashtags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="text-xs text-indigo-500">
+                      <span key={tag} className="text-xs text-amber-500">
                         #{tag}
                       </span>
                     ))}

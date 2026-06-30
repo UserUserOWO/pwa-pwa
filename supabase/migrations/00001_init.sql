@@ -10,17 +10,17 @@ CREATE TABLE IF NOT EXISTS profiles (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create reviews table
+-- Create reviews table with proper FK constraints
 CREATE TABLE IF NOT EXISTS reviews (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   profile_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
-  reviewer_id UUID NOT NULL,
+  reviewer_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
   text TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create indexes (IF NOT EXISTS works for indexes too)
+-- Create indexes
 CREATE INDEX IF NOT EXISTS idx_reviews_profile_id ON reviews(profile_id);
 CREATE INDEX IF NOT EXISTS idx_reviews_created_at ON reviews(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_profiles_user_id ON profiles(user_id);
@@ -52,14 +52,16 @@ CREATE POLICY "Users can update their own profile"
   ON profiles FOR UPDATE
   USING (auth.uid() = user_id);
 
--- Reviews policies
+-- Reviews policies: anyone can view, authenticated users can insert
 CREATE POLICY "Reviews are viewable by everyone"
   ON reviews FOR SELECT
   USING (true);
 
 CREATE POLICY "Authenticated users can insert reviews"
   ON reviews FOR INSERT
-  WITH CHECK (auth.role() = 'authenticated');
+  WITH CHECK (
+    auth.role() = 'authenticated'
+  );
 
 -- Create storage bucket for avatars
 INSERT INTO storage.buckets (id, name, public)

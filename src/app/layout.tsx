@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import MobileNav from "@/components/MobileNav";
 import { LanguageProvider } from "@/lib/LanguageContext";
 
 export const metadata: Metadata = {
@@ -18,13 +19,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#6366f1" />
+        <meta name="theme-color" content="#eab308" />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
-      <body className="min-h-screen bg-gray-50">
+      <body className="min-h-screen bg-[#fefce8]">
         <LanguageProvider>
           <Navbar />
-          <main className="pb-16">{children}</main>
+          <main className="pb-20 sm:pb-16">{children}</main>
+          <MobileNav />
         </LanguageProvider>
       </body>
     </html>
