@@ -1,5 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import { Review } from "@/types";
+import { evaluateReview } from "./moderation";
+import { logAuditEvent } from "./audit";
+import { adjustTrustScore } from "./trustScore";
 
 export async function createReview(
   profileId: string,
@@ -7,14 +10,37 @@ export async function createReview(
   rating: number,
   text: string
 ) {
-  const { error } = await supabase.from("reviews").insert({
+  // Validate content before saving
+  const moderation = await evaluateReview({ text, reviewerId });
+
+  if (moderation.action === "REJECTED") {
+    throw new Error(moderation.reason || "Review was rejected by moderation");
+  }
+
+  const { data, error } = await supabase.from("reviews").insert({
     profile_id: profileId,
     reviewer_id: reviewerId,
     rating,
     text,
-  });
+    status: moderation.action === "PENDING" ? "PENDING" : "PUBLISHED",
+    rejection_reason: moderation.reason ?? null,
+  }).select().single();
 
   if (error) throw error;
+
+  // Log the review creation
+  await logAuditEvent({
+    userId: reviewerId,
+    action: moderation.action === "PENDING" ? "REVIEW_CREATED_PENDING" : "REVIEW_CREATED",
+    entityType: "review",
+    entityId: data?.id ?? undefined,
+  });
+
+  if (moderation.action === "APPROVED") {
+    await adjustTrustScore(reviewerId, 2);
+  }
+
+  return data;
 }
 
 export async function getReviewsForProfile(
@@ -25,6 +51,7 @@ export async function getReviewsForProfile(
     .from("reviews")
     .select("*, reviewer:profiles(id, name, photo_url, description, hashtags, user_id, created_at, updated_at)")
     .eq("profile_id", profileId)
+    .in("status", ["PUBLISHED", "PENDING"])
     .order("created_at", { ascending: false })
     .limit(limit);
 
@@ -41,6 +68,7 @@ export async function getRecentReviews(
   const { data, error } = await supabase
     .from("reviews")
     .select("*, reviewer:profiles(id, name, photo_url, description, hashtags, user_id, created_at, updated_at)")
+    .eq("status", "PUBLISHED")
     .order("created_at", { ascending: false })
     .limit(limit);
 
@@ -55,7 +83,8 @@ export async function getReviewStats(profileId: string) {
   const { data, error } = await supabase
     .from("reviews")
     .select("rating")
-    .eq("profile_id", profileId);
+    .eq("profile_id", profileId)
+    .eq("status", "PUBLISHED");
 
   if (error) return { count: 0, average: 0 };
 

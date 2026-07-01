@@ -47,10 +47,13 @@ export default function ProfilePage() {
     load();
   }, [id]);
 
+  const [reviewError, setReviewError] = useState("");
+
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || !myProfile) return;
     setSubmitting(true);
+    setReviewError("");
     try {
       await createReview(id, myProfile.id, rating, text);
       const [reviewsData, statsData] = await Promise.all([
@@ -63,7 +66,8 @@ export default function ProfilePage() {
       setText("");
       setRating(5);
     } catch (err) {
-      console.error(err);
+      const message = err instanceof Error ? err.message : "Review could not be submitted";
+      setReviewError(message);
     } finally {
       setSubmitting(false);
     }
@@ -185,6 +189,11 @@ export default function ProfilePage() {
         {/* Review Form */}
         {showReviewForm && (
           <form onSubmit={handleSubmitReview} className="mt-6 p-5 bg-amber-50 rounded-xl animate-scale-in">
+            {reviewError && (
+              <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-xl text-sm">
+                {reviewError}
+              </div>
+            )}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">{t("profile.review.rating")}</label>
               <div className="flex gap-2">

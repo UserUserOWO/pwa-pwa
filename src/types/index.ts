@@ -17,6 +17,9 @@ export interface Review {
   text: string;
   created_at: string;
   reviewer?: Profile;
+  status?: "PUBLISHED" | "PENDING" | "HIDDEN" | "DELETED" | "REJECTED";
+  rejection_reason?: string;
+  moderated_at?: string;
 }
 
 export interface ReviewInsert {
@@ -24,6 +27,8 @@ export interface ReviewInsert {
   reviewer_id: string;
   rating: number;
   text: string;
+  status?: string;
+  rejection_reason?: string;
 }
 
 // ==================== WALLET & CREDITS ====================
@@ -103,6 +108,15 @@ export interface ModerationItem {
   updated_at: string;
 }
 
+export interface ReviewReport {
+  id: string;
+  review_id: string;
+  reported_by: string;
+  reason: string;
+  status: "PENDING" | "DISMISSED" | "ACTIONED";
+  created_at: string;
+}
+
 // ==================== NOTIFICATIONS ====================
 
 export interface Notification {
@@ -114,6 +128,33 @@ export interface Notification {
   data: Record<string, unknown>;
   read: boolean;
   created_at: string;
+}
+
+// ==================== EMAIL VERIFICATION ====================
+
+export interface EmailVerification {
+  id: string;
+  user_id: string;
+  email: string;
+  token: string;
+  expires_at: string;
+  verified_at: string | null;
+  created_at: string;
+}
+
+// ==================== TRUST SCORE ====================
+
+export interface TrustScore {
+  id: string;
+  user_id: string;
+  score: number;
+  email_verified: boolean;
+  account_age_days: number;
+  total_reports: number;
+  total_complaints: number;
+  quality_reviews: number;
+  blocks_count: number;
+  last_updated: string;
 }
 
 // ==================== DATABASE ====================
@@ -165,6 +206,21 @@ export interface Database {
         Row: Notification;
         Insert: Omit<Notification, "id" | "created_at">;
         Update: Partial<Omit<Notification, "id" | "created_at">>;
+      };
+      review_reports: {
+        Row: ReviewReport;
+        Insert: Omit<ReviewReport, "id" | "created_at">;
+        Update: Partial<Omit<ReviewReport, "id" | "created_at">>;
+      };
+      email_verifications: {
+        Row: EmailVerification;
+        Insert: Omit<EmailVerification, "id" | "created_at">;
+        Update: Partial<Omit<EmailVerification, "id" | "created_at">>;
+      };
+      user_trust_scores: {
+        Row: TrustScore;
+        Insert: Omit<TrustScore, "id" | "last_updated">;
+        Update: Partial<Omit<TrustScore, "id" | "last_updated">>;
       };
     };
   };

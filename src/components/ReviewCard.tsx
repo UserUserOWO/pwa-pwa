@@ -2,6 +2,10 @@
 
 import { Review } from "@/types";
 import Link from "next/link";
+import { useState } from "react";
+import { createReport } from "@/services/reviewReports";
+import { useAuth } from "@/hooks/useAuth";
+import { FiFlag, FiCheck, FiClock } from "react-icons/fi";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);
@@ -33,6 +37,22 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export default function ReviewCard({ review }: { review: Review }) {
+  const { user } = useAuth();
+  const [showReport, setShowReport] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const [reportSent, setReportSent] = useState(false);
+
+  const handleReport = async () => {
+    if (!user || !reportReason.trim()) return;
+    await createReport({
+      reviewId: review.id,
+      reportedBy: user.id,
+      reason: reportReason,
+    });
+    setReportSent(true);
+    setShowReport(false);
+  };
+
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-amber-100 hover:shadow-md transition-all duration-300 animate-fade-in">
       <div className="flex items-start gap-3">
@@ -50,17 +70,76 @@ export default function ReviewCard({ review }: { review: Review }) {
             >
               {review.reviewer?.name || "Unknown User"}
             </Link>
-            <span className="text-xs text-gray-400 shrink-0">
-              {formatDate(review.created_at)}
-            </span>
+            <div className="flex items-center gap-2">
+              {/* Status badge */}
+              {(review as any).status === "PENDING" && (
+                <span className="flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-medium">
+                  <FiClock className="w-3 h-3" />
+                  Pending
+                </span>
+              )}
+              {(review as any).status === "HIDDEN" && (
+                <span className="flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 rounded text-[10px] font-medium">
+                  Hidden
+                </span>
+              )}
+              <span className="text-xs text-gray-400 shrink-0">
+                {formatDate(review.created_at)}
+              </span>
+            </div>
           </div>
 
           <Stars rating={review.rating} />
 
-          {review.text && (
-            <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-              {review.text}
-            </p>
+          {(review as any).status === "HIDDEN" ? (
+            <p className="mt-2 text-sm text-gray-400 italic">This review has been hidden</p>
+          ) : (
+            review.text && (
+              <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                {review.text}
+              </p>
+            )
+          )}
+
+          {/* Report button */}
+          {user && (review as any).status !== "HIDDEN" && (
+            <div className="mt-2">
+              {reportSent ? (
+                <span className="text-xs text-green-600 flex items-center gap-1">
+                  <FiCheck className="w-3 h-3" /> Report sent
+                </span>
+              ) : showReport ? (
+                <div className="flex gap-2 items-start">
+                  <input
+                    type="text"
+                    value={reportReason}
+                    onChange={(e) => setReportReason(e.target.value)}
+                    placeholder="Reason for report..."
+                    className="flex-1 px-3 py-1.5 text-xs border border-amber-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-400"
+                  />
+                  <button
+                    onClick={handleReport}
+                    disabled={!reportReason.trim()}
+                    className="px-3 py-1.5 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50"
+                  >
+                    Send
+                  </button>
+                  <button
+                    onClick={() => setShowReport(false)}
+                    className="px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowReport(true)}
+                  className="text-xs text-gray-400 hover:text-red-500 flex items-center gap-1 transition-colors"
+                >
+                  <FiFlag className="w-3 h-3" /> Report
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>

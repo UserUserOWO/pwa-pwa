@@ -57,9 +57,12 @@ export default function RegisterPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
                 required
+                minLength={3}
+                maxLength={20}
                 className="w-full pl-10 pr-4 py-3 bg-white border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all text-sm"
               />
             </div>
+            <p className="text-xs text-gray-400 mt-1">3-20 characters, letters, numbers, hyphens, underscores</p>
           </div>
 
           <div>
