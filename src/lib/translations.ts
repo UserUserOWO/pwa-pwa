@@ -80,6 +80,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Scan QR
     "scan.title": "Scan QR Code",
     "scan.desc": "Point your camera at a QR code to view someone's profile",
+    "scan.active": "Camera active. Point at a QR code.",
     "scan.hint.title": "Works with PeopleReview QR codes",
     "scan.hint.desc": "Just point your camera at any PeopleReview profile QR code and you'll be taken directly to their profile",
 
@@ -187,6 +188,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Scan QR
     "scan.title": "Сканировать QR-код",
     "scan.desc": "Наведите камеру на QR-код, чтобы посмотреть профиль",
+    "scan.active": "Камера активна. Наведите на QR-код.",
     "scan.hint.title": "Работает с QR-кодами PeopleReview",
     "scan.hint.desc": "Просто наведите камеру на QR-код профиля PeopleReview, и вы перейдёте прямо в профиль",
 

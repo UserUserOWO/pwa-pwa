@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from "@/lib/LanguageContext";
@@ -10,10 +10,15 @@ export default function ScanPage() {
   const { user, loading } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const scannerInitialized = useRef(false);
+  const scannerInstance = useRef<any>(null);
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState("");
-  const scannerRef = useRef<any>(null);
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -21,35 +26,46 @@ export default function ScanPage() {
     }
   }, [user, loading, router]);
 
+  const stopScanner = useCallback(async () => {
+    if (scannerInstance.current) {
+      try {
+        await scannerInstance.current.stop();
+      } catch {}
+      scannerInstance.current = null;
+    }
+    scannerInitialized.current = false;
+  }, []);
+
   useEffect(() => {
-    if (!user) return;
+    if (!user || !isBrowser) return;
+    if (scannerInitialized.current) return;
 
     const initScanner = async () => {
+      scannerInitialized.current = true;
       try {
         const { Html5Qrcode } = await import("html5-qrcode");
         const html5QrCode = new Html5Qrcode("qr-reader");
-        scannerRef.current = html5QrCode;
+        scannerInstance.current = html5QrCode;
 
         await html5QrCode.start(
           { facingMode: "environment" },
           { fps: 10, qrbox: { width: 250, height: 250 } },
           (decodedText: string) => {
-            // Try to navigate to the scanned URL
             try {
               const url = new URL(decodedText);
               if (url.pathname.startsWith("/profile/")) {
-                html5QrCode.stop().catch(() => {});
+                stopScanner();
                 router.push(url.pathname);
               }
             } catch {
-              // Not a valid URL, just show it
               setError(`Scanned: ${decodedText}`);
             }
           },
-          () => {} // ignore scan failure
+          () => {}
         );
         setScanning(true);
-      } catch (err) {
+      } catch (err: any) {
+        scannerInitialized.current = false;
         setError("Camera access denied or unsupported. Use the search instead.");
       }
     };
@@ -57,11 +73,9 @@ export default function ScanPage() {
     initScanner();
 
     return () => {
-      if (scannerRef.current) {
-        scannerRef.current.stop().catch(() => {});
-      }
+      stopScanner();
     };
-  }, [user, router]);
+  }, [user, isBrowser, router, stopScanner]);
 
   if (loading || !user) {
     return (
@@ -79,20 +93,32 @@ export default function ScanPage() {
       </div>
 
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-amber-100 overflow-hidden">
-        <div
-          id="qr-reader"
-          className="w-full rounded-xl overflow-hidden"
-          style={{
-            aspectRatio: "1/1",
-            maxHeight: "400px",
-          }}
-        />
+        {isBrowser ? (
+          <div
+            id="qr-reader"
+            className="w-full rounded-xl overflow-hidden"
+            style={{
+              aspectRatio: "1/1",
+              maxHeight: "400px",
+            }}
+          />
+        ) : (
+          <div className="w-full aspect-square bg-gray-100 rounded-xl flex items-center justify-center">
+            <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
         {error && (
           <div className="mt-3 p-3 bg-red-50 text-red-600 rounded-xl text-sm text-center">
             {error}
           </div>
         )}
       </div>
+
+      {scanning && (
+        <div className="mt-4 p-3 bg-green-50 text-green-700 rounded-xl text-sm text-center animate-fade-in">
+          {t("scan.active")}
+        </div>
+      )}
 
       <div className="mt-6 bg-white rounded-2xl p-5 shadow-sm border border-amber-100">
         <div className="flex items-center gap-3">
