@@ -2,13 +2,11 @@ export type Lang = "en" | "ru";
 
 export const translations: Record<Lang, Record<string, string>> = {
   en: {
-    // Navbar
     "nav.home": "PeopleReview",
     "nav.profile": "Profile",
     "nav.scan": "Scan QR",
     "nav.balance": "Credits",
 
-    // Home page
     "home.badge": "MVP Launch",
     "home.title.line1": "Reviews about",
     "home.title.line2": "people",
@@ -22,7 +20,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "feature.reviews.title": "Collect Reviews",
     "feature.reviews.desc": "Get honest feedback from people you interact with",
 
-    // Auth
     "auth.welcome": "Welcome back",
     "auth.signin.subtitle": "Sign in to your account",
     "auth.signin.btn": "Sign In",
@@ -39,12 +36,10 @@ export const translations: Record<Lang, Record<string, string>> = {
     "auth.password": "Password",
     "auth.name": "Name",
 
-    // Feed
     "feed.title": "Feed",
     "feed.empty.title": "No reviews yet",
     "feed.empty.desc": "Be the first to leave a review!",
 
-    // Profile
     "profile.reviews": "Reviews",
     "profile.rating": "Rating",
     "profile.download_qr": "Download QR Code",
@@ -58,7 +53,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "profile.notfound": "Profile not found",
     "profile.noreviews": "No reviews yet",
 
-    // Settings
     "settings.title": "Settings",
     "settings.name": "Name",
     "settings.description": "Description",
@@ -69,7 +63,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "settings.success": "Profile updated successfully!",
     "settings.uploading": "Uploading...",
 
-    // Search
     "search.title": "Search People",
     "search.placeholder": "Search by name or hashtag...",
     "search.empty.title": "No results found",
@@ -77,14 +70,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     "search.idle.title": "Find people",
     "search.idle.desc": "Search by name or hashtag to find people",
 
-    // Scan QR
     "scan.title": "Scan QR Code",
     "scan.desc": "Point your camera at a QR code to view someone's profile",
     "scan.active": "Camera active. Point at a QR code.",
     "scan.hint.title": "Works with PeopleReview QR codes",
     "scan.hint.desc": "Just point your camera at any PeopleReview profile QR code and you'll be taken directly to their profile",
 
-    // Balance
     "balance.title": "My Balance",
     "balance.current": "Current Balance",
     "balance.credits": "Credits",
@@ -94,14 +85,17 @@ export const translations: Record<Lang, Record<string, string>> = {
     "balance.history": "Transaction History",
     "balance.history.empty": "No transactions yet",
 
-    // Top Up
     "topup.title": "Buy Credits",
     "topup.desc": "Choose a package to top up your balance",
     "topup.popular": "Popular",
+    "topup.payment": "Payment",
+    "topup.testpay": "Test Successful Payment",
+    "topup.processing": "Processing...",
+    "topup.success.title": "Payment Successful!",
+    "topup.success.desc": "Your balance has been updated. Redirecting...",
     "topup.unavailable.title": "Payment Unavailable",
-    "topup.unavailable.desc": "Payment system is being set up. Please check back later. Your balance page and profile features still work.",
+    "topup.unavailable.desc": "Payment system is being set up. Please check back later.",
 
-    // Common
     "common.loading": "Loading...",
     "common.error": "Error",
     "common.today": "Today",
@@ -110,13 +104,11 @@ export const translations: Record<Lang, Record<string, string>> = {
   },
 
   ru: {
-    // Navbar
     "nav.home": "PeopleReview",
     "nav.profile": "Профиль",
     "nav.scan": "Сканировать QR",
     "nav.balance": "Кредиты",
 
-    // Home page
     "home.badge": "MVP Запуск",
     "home.title.line1": "Отзывы о",
     "home.title.line2": "людях",
@@ -130,7 +122,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "feature.reviews.title": "Собирать отзывы",
     "feature.reviews.desc": "Получайте честную обратную связь от людей",
 
-    // Auth
     "auth.welcome": "С возвращением",
     "auth.signin.subtitle": "Войдите в аккаунт",
     "auth.signin.btn": "Войти",
@@ -147,12 +138,10 @@ export const translations: Record<Lang, Record<string, string>> = {
     "auth.password": "Пароль",
     "auth.name": "Имя",
 
-    // Feed
     "feed.title": "Лента",
     "feed.empty.title": "Отзывов пока нет",
     "feed.empty.desc": "Будьте первым, кто оставит отзыв!",
 
-    // Profile
     "profile.reviews": "Отзывы",
     "profile.rating": "Рейтинг",
     "profile.download_qr": "Скачать QR-код",
@@ -166,7 +155,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "profile.notfound": "Профиль не найден",
     "profile.noreviews": "Отзывов пока нет",
 
-    // Settings
     "settings.title": "Настройки",
     "settings.name": "Имя",
     "settings.description": "Описание",
@@ -177,7 +165,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     "settings.success": "Профиль обновлён!",
     "settings.uploading": "Загрузка...",
 
-    // Search
     "search.title": "Поиск людей",
     "search.placeholder": "Поиск по имени или хэштегу...",
     "search.empty.title": "Ничего не найдено",
@@ -185,14 +172,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     "search.idle.title": "Найти людей",
     "search.idle.desc": "Ищите людей по имени или хэштегу",
 
-    // Scan QR
     "scan.title": "Сканировать QR-код",
     "scan.desc": "Наведите камеру на QR-код, чтобы посмотреть профиль",
     "scan.active": "Камера активна. Наведите на QR-код.",
     "scan.hint.title": "Работает с QR-кодами PeopleReview",
     "scan.hint.desc": "Просто наведите камеру на QR-код профиля PeopleReview, и вы перейдёте прямо в профиль",
 
-    // Balance
     "balance.title": "Мой баланс",
     "balance.current": "Текущий баланс",
     "balance.credits": "Кредитов",
@@ -202,14 +187,17 @@ export const translations: Record<Lang, Record<string, string>> = {
     "balance.history": "История операций",
     "balance.history.empty": "Пока нет операций",
 
-    // Top Up
     "topup.title": "Купить кредиты",
     "topup.desc": "Выберите пакет для пополнения баланса",
     "topup.popular": "Популярное",
+    "topup.payment": "Оплата",
+    "topup.testpay": "Тестовая успешная оплата",
+    "topup.processing": "Обработка...",
+    "topup.success.title": "Оплата успешна!",
+    "topup.success.desc": "Баланс обновлён. Перенаправляем...",
     "topup.unavailable.title": "Оплата недоступна",
-    "topup.unavailable.desc": "Платёжная система настраивается. Зайдите позже. Баланс и профиль продолжают работать.",
+    "topup.unavailable.desc": "Платёжная система настраивается. Зайдите позже.",
 
-    // Common
     "common.loading": "Загрузка...",
     "common.error": "Ошибка",
     "common.today": "Сегодня",
